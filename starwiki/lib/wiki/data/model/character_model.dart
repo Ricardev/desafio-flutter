@@ -3,8 +3,8 @@ import 'package:starwiki/wiki/domain/entity/character_entity.dart';
 class CharacterModel extends CharacterEntity {
   const CharacterModel({
     required String name,
-    required int height,
-    required int mass,
+    required String height,
+    required String mass,
     required String hairColor,
     required String skinColor,
     required String eyeColor,
@@ -24,4 +24,20 @@ class CharacterModel extends CharacterEntity {
           homeWorld: homeWorld,
           specie: specie,
         );
+
+  factory CharacterModel.fromJson(Map<String, dynamic> json) {
+    return CharacterModel(
+      name: json['name'],
+      height: json['height'],
+      mass: json['mass'],
+      hairColor: json['hair_color'],
+      skinColor: json['skin_color'],
+      eyeColor: json['eye_color'],
+      birthYear: json['birth_year'],
+      gender: json['gender'],
+      homeWorld: json['homeworld'],
+      specie:
+          (json['species'] as List).map((dynamic e) => e.toString()).toList(),
+    );
+  }
 }

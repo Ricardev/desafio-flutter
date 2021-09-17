@@ -2,8 +2,8 @@ import 'package:equatable/equatable.dart';
 
 class CharacterEntity extends Equatable {
   final String name;
-  final int height;
-  final int mass;
+  final String height;
+  final String mass;
   final String hairColor;
   final String skinColor;
   final String eyeColor;
