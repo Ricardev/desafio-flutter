@@ -7,16 +7,16 @@ import 'package:starwiki/wiki/data/datasource/i_star_wars_datasource.dart';
 import 'package:starwiki/wiki/data/model/character_model.dart';
 import 'package:starwiki/wiki/data/model/people_info_model.dart';
 import 'package:starwiki/wiki/data/repository/star_wars_repository.dart';
+import 'package:starwiki/core/request_service/lib/request_provider.dart';
 
-
-class MockStarWarsDatasource extends Mock implements IStarWarsDatasource {}
+class MockRequestProvider extends Mock implements RequestProvider {}
 
 void main() {
-  late StarWarsRepository repository;
+  late RequestProvider requestProvider;
   late IStarWarsDatasource datasource;
   setUp(() {
-    datasource = MockStarWarsDatasource();
-    repository = StarWarsRepository(starWarsDatasource: datasource);
+    requestProvider = MockRequestProvider();
+    datasource = StarWarsRepository(starWarsDatasource: datasource);
   });
   const tCharacterModel = CharacterModel(
     name: 'name',
