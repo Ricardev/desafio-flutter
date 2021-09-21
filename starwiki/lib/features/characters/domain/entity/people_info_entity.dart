@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:starwiki/wiki/domain/entity/character_entity.dart';
+import 'package:starwiki/features/characters/domain/entity/character_entity.dart';
 
 class PeopleInfoEntity extends Equatable {
   final int count;

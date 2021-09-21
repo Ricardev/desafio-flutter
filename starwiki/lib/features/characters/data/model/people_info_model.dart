@@ -1,13 +1,13 @@
-import 'package:starwiki/wiki/data/model/character_model.dart';
-import 'package:starwiki/wiki/domain/entity/character_entity.dart';
-import 'package:starwiki/wiki/domain/entity/people_info_entity.dart';
+import 'package:starwiki/features/characters/domain/entity/people_info_entity.dart';
+
+import 'character_model.dart';
 
 class PeopleInfoModel extends PeopleInfoEntity {
   const PeopleInfoModel({
     required int count,
     required String next,
     required String previous,
-    required List<CharacterEntity> characters,
+    required List<CharacterModel> characters,
   }) : super(
           count: count,
           next: next,
@@ -24,5 +24,14 @@ class PeopleInfoModel extends PeopleInfoEntity {
           .map((dynamic e) => CharacterModel.fromJson(e))
           .toList(),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> data = Map<String, dynamic>();
+    data['count'] = this.count;
+    data['next'] != null ? this.next : null;
+    data['previous'] != null ? this.previous : null;
+    data['results'] = this.characters;
+    return data;
   }
 }

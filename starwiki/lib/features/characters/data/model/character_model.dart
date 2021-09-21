@@ -1,4 +1,4 @@
-import 'package:starwiki/wiki/domain/entity/character_entity.dart';
+import 'package:starwiki/features/characters/domain/entity/character_entity.dart';
 
 class CharacterModel extends CharacterEntity {
   const CharacterModel({

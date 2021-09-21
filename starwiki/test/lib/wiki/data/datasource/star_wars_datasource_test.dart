@@ -3,11 +3,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:starwiki/core/erro/errors.dart';
 import 'package:starwiki/core/erro/exceptions.dart';
-import 'package:starwiki/wiki/data/datasource/i_star_wars_datasource.dart';
-import 'package:starwiki/wiki/data/model/character_model.dart';
-import 'package:starwiki/wiki/data/model/people_info_model.dart';
-import 'package:starwiki/wiki/data/repository/star_wars_repository.dart';
 import 'package:starwiki/core/request_service/lib/request_provider.dart';
+import 'package:starwiki/features/characters/data/datasource/i_star_wars_datasource.dart';
+import 'package:starwiki/features/characters/data/model/character_model.dart';
+import 'package:starwiki/features/characters/data/model/people_info_model.dart';
+import 'package:starwiki/features/characters/data/repository/star_wars_repository.dart';
 
 class MockRequestProvider extends Mock implements RequestProvider {}
 
