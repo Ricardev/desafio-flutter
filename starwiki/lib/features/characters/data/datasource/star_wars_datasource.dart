@@ -1,4 +1,4 @@
-import 'package:starwiki/core/export.dart';
+import 'package:starwiki/core/request_service/request_provider.dart';
 import 'package:starwiki/features/characters/data/datasource/i_star_wars_datasource.dart';
 import 'package:starwiki/features/characters/data/model/people_info_model.dart';
 import 'package:starwiki/features/characters/domain/usecase/get_character_usecase.dart';

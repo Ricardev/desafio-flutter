@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:starwiki/features/characters/presentation/pages/characters_list.dart';
 import 'config/injector/injector.dart' as injector;
 
-void main() {
-  injector.init();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await injector.init();
   runApp(const MyApp());
 }
 

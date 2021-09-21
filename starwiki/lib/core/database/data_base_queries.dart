@@ -1,5 +1,6 @@
-import 'package:data_base_helper/custom_sqflite.dart';
 import 'dart:async';
+import 'package:starwiki/core/database/custom_sqflite.dart';
+
 import 'data_base_helper.dart';
 
 class DatabaseHelperQueries implements DataBaseHelper {
