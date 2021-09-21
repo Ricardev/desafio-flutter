@@ -2,10 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:starwiki/core/erro/errors.dart';
-import 'package:starwiki/wiki/domain/entity/character_entity.dart';
-import 'package:starwiki/wiki/domain/entity/people_info_entity.dart';
-import 'package:starwiki/wiki/domain/repository/i_star_wars_repository.dart';
-import 'package:starwiki/wiki/domain/usecase/get_character_usecase.dart';
+import 'package:starwiki/features/characters/domain/entity/character_entity.dart';
+import 'package:starwiki/features/characters/domain/entity/people_info_entity.dart';
+import 'package:starwiki/features/characters/domain/repository/i_star_wars_repository.dart';
+import 'package:starwiki/features/characters/domain/usecase/get_character_usecase.dart';
 
 class MockStarWarsRepository extends Mock implements IStarWarsRepository {}
 
@@ -39,18 +39,18 @@ void main() {
   test(
       'Deve retornar um character entity, ao pegar as informações do repository',
       () async {
-    when(() => repository.getCharacters())
+    when(() => repository.getCharacters(any()))
         .thenAnswer((_) async => const Right(tPeopleInfoEntity));
-    final result = await getCharacterUsecase.call();
+    final result = await getCharacterUsecase.call(any());
     expect(result, const Right<Error, PeopleInfoEntity>(tPeopleInfoEntity));
-    verify(() => repository.getCharacters());
+    verify(() => repository.getCharacters(any()));
   });
 
   test('Deve retornar um Error no retorno do usecase', () async {
-    when(() => repository.getCharacters())
+    when(() => repository.getCharacters(any()))
         .thenAnswer((_) async => Left(ServerError()));
-    final result = await getCharacterUsecase.call();
+    final result = await getCharacterUsecase.call(any());
     expect(result, Left<Error, PeopleInfoEntity>(ServerError()));
-    verify(() => repository.getCharacters());
+    verify(() => repository.getCharacters(any()));
   });
 }

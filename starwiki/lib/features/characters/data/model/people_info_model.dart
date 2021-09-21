@@ -27,11 +27,11 @@ class PeopleInfoModel extends PeopleInfoEntity {
   }
 
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> data = Map<String, dynamic>();
-    data['count'] = this.count;
-    data['next'] != null ? this.next : null;
-    data['previous'] != null ? this.previous : null;
-    data['results'] = this.characters;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['count'] = count;
+    data['next'] != null ? next : null;
+    data['previous'] != null ? previous : null;
+    data['results'] = characters;
     return data;
   }
 }

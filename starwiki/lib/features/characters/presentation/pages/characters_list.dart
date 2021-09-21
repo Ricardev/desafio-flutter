@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:starwiki/core/request_service/config/injector.dart';
+import 'package:starwiki/config/injector/injector.dart';
 import 'package:starwiki/features/characters/presentation/bloc/characters_list_bloc.dart';
 
 class CharactersListPage extends StatefulWidget {
@@ -16,7 +16,7 @@ class _CharactersListPageState extends State<CharactersListPage> {
 
   @override
   void initState() {
-    _bloc = Injector.getIt.get<CharactersListBloc>();
+    _bloc = injector.get<CharactersListBloc>();
     super.initState();
   }
 

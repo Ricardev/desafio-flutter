@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:starwiki/wiki/data/model/character_model.dart';
-import 'package:starwiki/wiki/data/model/people_info_model.dart';
-import 'package:starwiki/wiki/domain/entity/people_info_entity.dart';
+import 'package:starwiki/features/characters/data/model/character_model.dart';
+import 'package:starwiki/features/characters/data/model/people_info_model.dart';
+import 'package:starwiki/features/characters/domain/entity/people_info_entity.dart';
 
 import '../../../../mock/people_info_mock.dart';
 

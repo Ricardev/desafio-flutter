@@ -4,6 +4,7 @@ import 'config/injector/injector.dart' as injector;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await injector.init();
   runApp(const MyApp());
 }
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: CharactersListPage(),
+      home: const CharactersListPage(),
     );
   }
 }

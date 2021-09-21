@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:starwiki/core/database/custom_sqflite.dart';
 
 import 'data_base_helper.dart';
@@ -15,17 +16,17 @@ class DatabaseHelperQueries implements DataBaseHelper {
 
   @override
   Future initDataBase(String nomeDB, int versaoDB, List<String> queries) async {
-    print('criação do banco: ' + '$nomeDB ' + versaoDB.toString());
+    debugPrint('criação do banco: ' '$nomeDB ' + versaoDB.toString());
     try {
       await CustomSqflite.instance.carregarBanco(nomeDB, versaoDB, queries);
     } on Exception catch (error) {
-      print(error);
+      debugPrint(error.toString());
     }
   }
 
   @override
   Future<int> insertList(String tabela, List<Map<String, dynamic>> maps) async {
-    print('inserção da lista de objetos na tabela: ' + tabela);
+    debugPrint('inserção da lista de objetos na tabela: ' + tabela);
     int resultado = -1;
     for (var map in maps) {
       resultado = await CustomSqflite.instance.db!.insert(
@@ -38,7 +39,7 @@ class DatabaseHelperQueries implements DataBaseHelper {
 
   @override
   Future<int> insert(String tabela, Map<String, dynamic> objeto) async {
-    print('Inserção da tabela: ' + tabela);
+    debugPrint('Inserção da tabela: ' + tabela);
     int resultado = -1;
     resultado = await CustomSqflite.instance.db!.insert(tabela, objeto);
 
@@ -47,14 +48,14 @@ class DatabaseHelperQueries implements DataBaseHelper {
 
   @override
   Future getTable(String table) async {
-    print('get da tabela: ' + table);
+    debugPrint('get da tabela: ' + table);
     return await CustomSqflite.instance.db!.rawQuery('SELECT * FROM $table');
   }
 
   @override
   Future<T> getValueById<T>(String table, String id,
       T Function(Map<String, dynamic>) funcaoDeConversao) async {
-    print('get da tabela: ' + table + ' com o Id: ' + id);
+    debugPrint('get da tabela: ' + table + ' com o Id: ' + id);
     List<Map<String, dynamic>> dadosDoBanco = await CustomSqflite.instance.db!
         .rawQuery('SELECT * FROM $table  WHERE id == "$id"');
 
@@ -65,7 +66,7 @@ class DatabaseHelperQueries implements DataBaseHelper {
   Future<List<T>> getAll<T>(
       String tabela, T Function(Map<String, dynamic>) funcaoDeConversao,
       {String? where, List<dynamic>? whereArgs, String? orderBy}) async {
-    print('get all da tabela: ' + tabela);
+    debugPrint('get all da tabela: ' + tabela);
     var dadosDoBanco = await CustomSqflite.instance.db!
         .query(tabela, where: where, whereArgs: whereArgs, orderBy: orderBy);
 
@@ -79,7 +80,7 @@ class DatabaseHelperQueries implements DataBaseHelper {
   @override
   Future<int> update(String tabela, Map<String, dynamic> map, dynamic valor,
       String campo) async {
-    print('update da tabela: ' + tabela);
+    debugPrint('update da tabela: ' + tabela);
     return await CustomSqflite.instance.db!.update(
       tabela,
       map,
@@ -90,7 +91,7 @@ class DatabaseHelperQueries implements DataBaseHelper {
 
   @override
   Future<int> delete(String table, {String? column, List? whereArgs}) async {
-    print('delete da tabela: ' + table + 'na column ' + '$column');
+    debugPrint('delete da tabela: ' + table + 'na column ' + '$column');
     return await CustomSqflite.instance.db!.delete(
       table,
       where: '$column = ?',

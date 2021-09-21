@@ -19,7 +19,7 @@ class GetCharacterUsecase
 
 class GetCharactersParams extends Equatable {
   final String page;
-  GetCharactersParams({required this.page});
+  const GetCharactersParams({required this.page});
 
   @override
   List<Object?> get props => [page];

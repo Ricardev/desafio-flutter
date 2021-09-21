@@ -3,10 +3,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:starwiki/core/erro/errors.dart';
 import 'package:starwiki/core/erro/exceptions.dart';
-import 'package:starwiki/wiki/data/datasource/i_star_wars_datasource.dart';
-import 'package:starwiki/wiki/data/model/character_model.dart';
-import 'package:starwiki/wiki/data/model/people_info_model.dart';
-import 'package:starwiki/wiki/data/repository/star_wars_repository.dart';
+import 'package:starwiki/features/characters/data/datasource/i_star_wars_datasource.dart';
+import 'package:starwiki/features/characters/data/model/character_model.dart';
+import 'package:starwiki/features/characters/data/model/people_info_model.dart';
+import 'package:starwiki/features/characters/data/repository/star_wars_repository.dart';
+
 
 
 class MockStarWarsDatasource extends Mock implements IStarWarsDatasource {}
@@ -38,17 +39,17 @@ void main() {
   );
 
   test('Retorna uma lista de CharacterModel', () async {
-    when(() => datasource.getCharactersFromData())
+    when(() => datasource.getCharactersFromData(any()))
         .thenAnswer((_) async => (tPeopleInfoModel));
-    final result = await repository.getCharacters();
+    final result = await repository.getCharacters(any());
     expect(result, const Right<Error, PeopleInfoModel>(tPeopleInfoModel));
-    verify(() => datasource.getCharactersFromData()).called(1);
+    verify(() => datasource.getCharactersFromData(any())).called(1);
   });
 
   test('Retorna um exception', () async {
-    when(() => datasource.getCharactersFromData()).thenThrow(ServerException());
-    final result = await repository.getCharacters();
+    when(() => datasource.getCharactersFromData(any())).thenThrow(ServerException());
+    final result = await repository.getCharacters(any());
     expect(result, Left(ServerError()));
-    verify(() => datasource.getCharactersFromData()).called(1);
+    verify(() => datasource.getCharactersFromData(any())).called(1);
   });
 }

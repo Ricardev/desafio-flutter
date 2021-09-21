@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
 import 'i_request_provider.dart';
 import 'utils/enum.dart';
 import 'package:dio/dio.dart';
@@ -30,7 +32,7 @@ class RequestProvider implements IRequestProvider, InterceptorsWrapper {
   @override
   Future<T> getAsync<T>(String url,
       Function(Map<String, dynamic> json, String? dataName) fromJson) async {
-    var response;
+    dynamic response;
     try {
       response = await dio.get(
         url,
@@ -50,11 +52,11 @@ class RequestProvider implements IRequestProvider, InterceptorsWrapper {
   Future<T> postAsync<T>(String url, T objeto,
       T Function(Map<String, dynamic> json) fromJson) async {
     var str = json.encode(objeto);
-    var response;
+    dynamic response;
     try {
       response = await dio.post(url, data: str);
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
     if (response.data != null) {
       return fromJson(response.data) ?? response.data as T;
@@ -67,11 +69,11 @@ class RequestProvider implements IRequestProvider, InterceptorsWrapper {
   Future<T> putAsync<T>(String url, T objeto,
       T Function(Map<String, dynamic> json) fromJson) async {
     var str = json.encode(objeto);
-    var response;
+    dynamic response;
     try {
       response = await dio.put(url, data: str);
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
     if (response.data != null) {
       return fromJson(response.data) ?? response.data as T;
@@ -82,8 +84,8 @@ class RequestProvider implements IRequestProvider, InterceptorsWrapper {
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
-    print(err.message);
-    print(err.response);
+    debugPrint(err.message);
+    debugPrint(err.response.toString());
     handler.next(err);
   }
 
@@ -94,11 +96,11 @@ class RequestProvider implements IRequestProvider, InterceptorsWrapper {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    print(response.realUri);
-    print('----------------------');
-    print(response.statusCode);
-    print('----------------------');
-    print(response.data);
+    debugPrint(response.realUri.toString());
+    debugPrint('----------------------');
+    debugPrint(response.statusCode.toString());
+    debugPrint('----------------------');
+    debugPrint(response.data);
     handler.next(response);
   }
 }
