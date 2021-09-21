@@ -17,7 +17,7 @@ void main() {
     repository = MockStarWarsRepository();
     getCharacterUsecase = GetCharacterUsecase(starWarsRepository: repository);
   });
-
+const tGetCharactersParams = GetCharactersParams(page: '1');
   const tCharacterEntity = CharacterEntity(
     name: 'name',
     height: '10',
@@ -39,18 +39,18 @@ void main() {
   test(
       'Deve retornar um character entity, ao pegar as informações do repository',
       () async {
-    when(() => repository.getCharacters(any()))
+    when(() => repository.getCharacters(tGetCharactersParams))
         .thenAnswer((_) async => const Right(tPeopleInfoEntity));
-    final result = await getCharacterUsecase.call(any());
+    final result = await getCharacterUsecase.call(tGetCharactersParams);
     expect(result, const Right<Error, PeopleInfoEntity>(tPeopleInfoEntity));
-    verify(() => repository.getCharacters(any()));
+    verify(() => repository.getCharacters(tGetCharactersParams));
   });
 
   test('Deve retornar um Error no retorno do usecase', () async {
-    when(() => repository.getCharacters(any()))
+    when(() => repository.getCharacters(tGetCharactersParams))
         .thenAnswer((_) async => Left(ServerError()));
-    final result = await getCharacterUsecase.call(any());
+    final result = await getCharacterUsecase.call(tGetCharactersParams);
     expect(result, Left<Error, PeopleInfoEntity>(ServerError()));
-    verify(() => repository.getCharacters(any()));
+    verify(() => repository.getCharacters(tGetCharactersParams));
   });
 }

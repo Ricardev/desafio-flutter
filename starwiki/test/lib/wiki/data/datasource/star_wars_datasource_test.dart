@@ -16,6 +16,7 @@ void main() {
     requestProvider = MockRequestProvider();
     datasource = StarWarsDatasource(requestProvider: requestProvider);
   });
+  
   const tCharacterModel = CharacterModel(
     name: 'name',
     height: '122',
