@@ -15,7 +15,7 @@ class PeopleInfoModel extends PeopleInfoEntity {
           characters: characters,
         );
 
-  factory PeopleInfoModel.fromJson(Map<String, dynamic> json) {
+  static dynamic fromJson(Map<String, dynamic> json) {
     return PeopleInfoModel(
       count: json['count'],
       next: json['next'] ?? 'last',

@@ -1,0 +1,5 @@
+const planetMock = """
+{
+    "name": "Umbara"       
+}
+""";

@@ -1,0 +1,5 @@
+const specieMock = """
+{
+    "name": "Droid"       
+}
+""";

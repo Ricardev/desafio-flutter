@@ -30,8 +30,8 @@ class RequestProvider implements IRequestProvider, InterceptorsWrapper {
   }
 
   @override
-  Future<T> getAsync<T>(String url,
-      Function(Map<String, dynamic> json, String? dataName) fromJson) async {
+  Future<T> getAsync<T>(
+      String url, Function(Map<String, dynamic> json) fromJson) async {
     dynamic response;
     try {
       response = await dio.get(
@@ -39,10 +39,10 @@ class RequestProvider implements IRequestProvider, InterceptorsWrapper {
       );
     } on DioError catch (error) {
       response = error.response;
-      return fromJson(response.data, null);
+      return fromJson(response.data);
     }
     if (response.data != null) {
-      return fromJson(response.data, dataName) ?? response.data as T;
+      return fromJson(response.data) ?? response.data as T;
     } else {
       return response.data;
     }
@@ -100,7 +100,7 @@ class RequestProvider implements IRequestProvider, InterceptorsWrapper {
     debugPrint('----------------------');
     debugPrint(response.statusCode.toString());
     debugPrint('----------------------');
-    debugPrint(response.data);
+    debugPrint(response.data.toString());
     handler.next(response);
   }
 }

@@ -17,7 +17,7 @@ void main() {
     repository = MockStarWarsRepository();
     getCharacterUsecase = GetCharacterUsecase(starWarsRepository: repository);
   });
-const tGetCharactersParams = GetCharactersParams(page: '1');
+  const tGetCharactersParams = GetCharactersParams(page: 1);
   const tCharacterEntity = CharacterEntity(
     name: 'name',
     height: '10',
