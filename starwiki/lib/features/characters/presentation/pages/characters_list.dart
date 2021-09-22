@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -50,7 +49,7 @@ class _CharactersListPageState extends State<CharactersListPage> {
                     itemCount: _bloc.characters.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
-                        onTap: _bloc.navigateToCharacterPage,
+                        onTap: () => _bloc.navigateToCharacterPage(index),
                         child: CharacterContainer(
                           bloc: _bloc,
                           index: index,

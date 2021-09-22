@@ -44,9 +44,13 @@ abstract class _CharactersListBlocBase with Store {
     }
   }
 
-  void navigateToCharacterPage() async {
-    await Navigator.push(_context!,
-        MaterialPageRoute(builder: (_) => const CharacterDetailedPage()));
+  void navigateToCharacterPage(int index) async {
+    await Navigator.push(
+        _context!,
+        MaterialPageRoute(
+            builder: (_) => CharacterDetailedPage(
+                  characterEntity: characters[index],
+                )));
   }
 
   @observable
