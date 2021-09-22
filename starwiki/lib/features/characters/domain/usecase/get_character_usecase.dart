@@ -18,7 +18,7 @@ class GetCharacterUsecase
 }
 
 class GetCharactersParams extends Equatable {
-  final String page;
+  final int page;
   const GetCharactersParams({required this.page});
 
   @override

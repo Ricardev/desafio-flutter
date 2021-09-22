@@ -6,6 +6,9 @@ import 'package:starwiki/features/characters/data/datasource/i_star_wars_datasou
 import 'package:starwiki/features/characters/data/datasource/star_wars_datasource.dart';
 import 'package:starwiki/features/characters/data/model/character_model.dart';
 import 'package:starwiki/features/characters/data/model/people_info_model.dart';
+import 'package:starwiki/features/characters/data/model/planet_model.dart';
+import 'package:starwiki/features/characters/data/model/specie_model.dart';
+import 'package:starwiki/features/characters/domain/usecase/get_character_usecase.dart';
 
 class MockRequestProvider extends Mock implements IRequestProvider {}
 
@@ -16,7 +19,7 @@ void main() {
     requestProvider = MockRequestProvider();
     datasource = StarWarsDatasource(requestProvider: requestProvider);
   });
-  
+  const tGetCharactersParams = GetCharactersParams(page: 1);
   const tCharacterModel = CharacterModel(
     name: 'name',
     height: '122',
@@ -29,10 +32,45 @@ void main() {
     homeWorld: 'homeWorld',
     specie: ['specie'],
   );
-  const tPeopleInfoModel = PeopleInfoModel(
-    count: 81,
-    next: 'next',
-    previous: 'previous',
-    characters: [tCharacterModel],
+  
+
+  test(
+    'tem que chamar o método correto com a url correta ao chamar os personagens',
+    () async {
+      when(() => requestProvider.getAsync(any(), any()))
+          .thenAnswer((_) async => const PeopleInfoModel(
+                characters: [tCharacterModel],
+                count: 81,
+                next: '',
+                previous: '',
+              ));
+
+      await datasource.getCharactersFromData(tGetCharactersParams);
+
+      verify(() => requestProvider.getAsync(
+          "https://swapi.dev/api/people?page=1", PeopleInfoModel.fromJson));
+    },
+  );
+  test(
+    'tem que chamar o método correto com a url correta ao chamar a specie',
+    () async {
+      when(() => requestProvider.getAsync(any(), any()))
+          .thenAnswer((_) async => const SpecieModel(specieName: 'specieName'));
+
+      await datasource.getCharacterSpecie('specieUrl');
+
+      verify(() => requestProvider.getAsync("specieUrl", SpecieModel.fromJson));
+    },
+  );
+  test(
+    'tem que chamar o método correto com a url correta ao chamar a planet',
+    () async {
+      when(() => requestProvider.getAsync(any(), any()))
+          .thenAnswer((_) async => const PlanetModel(planetName: 'planetName'));
+
+      await datasource.getCharacterPlanet('planetUrl');
+
+      verify(() => requestProvider.getAsync("planetUrl", PlanetModel.fromJson));
+    },
   );
 }
