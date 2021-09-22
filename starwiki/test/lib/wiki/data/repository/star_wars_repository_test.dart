@@ -5,10 +5,12 @@ import 'package:starwiki/core/erro/errors.dart';
 import 'package:starwiki/core/erro/exceptions.dart';
 import 'package:starwiki/features/characters/data/datasource/i_star_wars_datasource.dart';
 import 'package:starwiki/features/characters/data/model/character_model.dart';
+import 'package:starwiki/features/characters/data/model/favorities_model.dart';
 import 'package:starwiki/features/characters/data/model/people_info_model.dart';
 import 'package:starwiki/features/characters/data/model/planet_model.dart';
 import 'package:starwiki/features/characters/data/model/specie_model.dart';
 import 'package:starwiki/features/characters/data/repository/star_wars_repository.dart';
+import 'package:starwiki/features/characters/domain/entity/favorities_entity.dart';
 import 'package:starwiki/features/characters/domain/entity/planet_entity.dart';
 import 'package:starwiki/features/characters/domain/entity/specie_entity.dart';
 import 'package:starwiki/features/characters/domain/usecase/get_character_usecase.dart';
@@ -43,6 +45,7 @@ void main() {
   );
   const tSpecieModel = SpecieModel(specieName: 'specieName');
   const tPlanetModel = PlanetModel(planetName: 'planetName');
+  const tFavoriteModel = FavoritiesModel(status: 'status', message: 'message');
 
   test('Retorna uma lista de CharacterModel', () async {
     when(() => datasource.getCharactersFromData(tGetCharactersParams))
@@ -67,6 +70,14 @@ void main() {
     final result = await repository.getCharacterPlanet('planetUrl');
     expect(result, const Right<Error, PlanetEntity>(tPlanetModel));
     verify(() => datasource.getCharacterPlanet('planetUrl')).called(1);
+  });
+
+  test('Retorna um FavoriteModel', () async {
+    when(() => datasource.favoriteCharacter(1))
+        .thenAnswer((_) async => (tFavoriteModel));
+    final result = await repository.getFavoriteResponse(1);
+    expect(result, const Right<Error, FavoritiesEntity>(tFavoriteModel));
+    verify(() => datasource.favoriteCharacter(1)).called(1);
   });
 
   test('Retorna um exception', () async {

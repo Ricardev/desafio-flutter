@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:starwiki/core/erro/errors.dart';
-import 'package:starwiki/features/characters/domain/entity/people_info_entity.dart';
 import 'package:starwiki/features/characters/domain/entity/specie_entity.dart';
 import 'package:starwiki/features/characters/domain/repository/i_star_wars_repository.dart';
 import 'package:starwiki/features/characters/domain/usecase/get_character_specie_usecase.dart';
@@ -31,7 +30,7 @@ void main() {
     when(() => repository.getCharacterSpecie('specieUrl'))
         .thenAnswer((_) async => Left(ServerError()));
     final result = await getCharacterSpecieUsecase.call('specieUrl');
-    expect(result, Left<Error, PeopleInfoEntity>(ServerError()));
+    expect(result, Left<Error, SpecieEntity>(ServerError()));
     verify(() => repository.getCharacterSpecie('specieUrl'));
   });
 }

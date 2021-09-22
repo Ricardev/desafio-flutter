@@ -1,5 +1,6 @@
 abstract class IRequestProvider {
   void setDataName(String name);
+  void setHeaders(Map<String, dynamic>  headers);
 
   Future<T> getAsync<T>(
       String url, Function(Map<String, dynamic> json) fromJson);

@@ -103,4 +103,7 @@ class RequestProvider implements IRequestProvider, InterceptorsWrapper {
     debugPrint(response.data.toString());
     handler.next(response);
   }
+
+  @override
+  void setHeaders(Map<String, dynamic> headers) => dio.options.headers;
 }

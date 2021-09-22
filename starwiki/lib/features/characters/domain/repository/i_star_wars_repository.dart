@@ -1,5 +1,6 @@
 import 'package:starwiki/core/erro/errors.dart';
 import 'package:dartz/dartz.dart';
+import 'package:starwiki/features/characters/domain/entity/favorities_entity.dart';
 import 'package:starwiki/features/characters/domain/entity/people_info_entity.dart';
 import 'package:starwiki/features/characters/domain/entity/planet_entity.dart';
 import 'package:starwiki/features/characters/domain/entity/specie_entity.dart';
@@ -10,4 +11,7 @@ abstract class IStarWarsRepository {
       GetCharactersParams params);
   Future<Either<Error, SpecieEntity>> getCharacterSpecie(String specieUrl);
   Future<Either<Error, PlanetEntity>> getCharacterPlanet(String planetUrl);
+  Future<Either<Error, FavoritiesEntity>> getFavoriteResponse(int id);
+  Future<Either<Error, PeopleInfoEntity>> getCharacterSearch(
+      String name);
 }
