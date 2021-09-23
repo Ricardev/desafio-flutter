@@ -84,7 +84,7 @@ class _CharactersListPageState extends State<CharactersListPage> {
               },
             ),
             hintText: 'Search...',
-            hintStyle: TextStyle(color: Colors.white),
+            hintStyle: const TextStyle(color: Colors.white),
           ),
         );
       } else {

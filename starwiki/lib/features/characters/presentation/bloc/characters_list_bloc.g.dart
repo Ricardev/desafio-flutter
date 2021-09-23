@@ -24,6 +24,22 @@ mixin _$CharactersListBloc on _CharactersListBlocBase, Store {
     });
   }
 
+  final _$favoritesListAtom =
+      Atom(name: '_CharactersListBlocBase.favoritesList');
+
+  @override
+  ObservableList<int> get favoritesList {
+    _$favoritesListAtom.reportRead();
+    return super.favoritesList;
+  }
+
+  @override
+  set favoritesList(ObservableList<int> value) {
+    _$favoritesListAtom.reportWrite(value, super.favoritesList, () {
+      super.favoritesList = value;
+    });
+  }
+
   final _$stateAtom = Atom(name: '_CharactersListBlocBase.state');
 
   @override
@@ -103,6 +119,7 @@ mixin _$CharactersListBloc on _CharactersListBlocBase, Store {
   @override
   String toString() {
     return '''
+favoritesList: ${favoritesList},
 state: ${state},
 page: ${page},
 nextUrl: ${nextUrl},

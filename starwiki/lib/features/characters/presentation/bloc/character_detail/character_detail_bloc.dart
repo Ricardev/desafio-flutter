@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:starwiki/core/states/application_states.dart';
 import 'package:starwiki/features/characters/domain/entity/character_entity.dart';
 import 'package:starwiki/features/characters/domain/entity/planet_entity.dart';
 import 'package:starwiki/features/characters/domain/entity/specie_entity.dart';
@@ -28,14 +29,40 @@ abstract class _CharacterDetailBlocBase with Store {
   @observable
   SpecieEntity? specieEntity;
 
+  @observable
+  ObservableList<String>? specieList = ObservableList<String>();
+
+  @observable
+  ApplicationState planetState = ApplicationState.loading;
+
+  @observable
+  ApplicationState specieState = ApplicationState.loading;
+
   void getPlanet() async {
-    final result = await planetUseCase(characterEntity!.homeWorld);
-    result.fold((error) => null, (planet) => planetEntity = planet);
+    if (characterEntity?.homeWorld != null) {
+      final result = await planetUseCase(characterEntity!.homeWorld);
+      result.fold((error) => null, (planet) => planetEntity = planet);
+    } else {
+      planetEntity = const PlanetEntity(planetName: 'Non-Existent');
+    }
+
+    planetState = ApplicationState.loaded;
   }
 
   void getSpecie() async {
-    final result = await specieUseCase(
-        SpecieParams(specieUrl: characterEntity!.homeWorld));
-    result.fold((error) => null, (specie) => specieEntity = specie);
+    specieList?.clear();
+    if (characterEntity != null && characterEntity!.specie.isNotEmpty) {
+      for (String specie in characterEntity!.specie) {
+        final result = await specieUseCase(SpecieParams(specieUrl: specie));
+        result.fold(
+          (error) => null,
+          (specie) => specieList?.add(specie.specieName),
+        );
+      }
+    } else {
+      specieList?.add('Non-Existent');
+    }
+
+    specieState = ApplicationState.loaded;
   }
 }

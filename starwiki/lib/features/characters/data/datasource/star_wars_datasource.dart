@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:dio/dio.dart';
 import 'package:starwiki/core/request_service/service.dart';
 import 'package:starwiki/features/characters/data/datasource/i_star_wars_datasource.dart';
 import 'package:starwiki/features/characters/data/model/favorities_model.dart';
