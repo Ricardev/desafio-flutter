@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -15,6 +16,9 @@ class CharactersListPage extends StatefulWidget {
 
 class _CharactersListPageState extends State<CharactersListPage> {
   late CharactersListBloc _bloc;
+  final TextEditingController textEditingController = TextEditingController();
+  Icon _searchIcon = const Icon(Icons.search);
+  Widget _appBarTitle = const Text('Wiki do StarWars');
 
   @override
   void initState() {
@@ -31,6 +35,7 @@ class _CharactersListPageState extends State<CharactersListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: _buildBar(context),
       backgroundColor: Colors.black,
       body: Observer(
         builder: (_) => _bloc.state == ApplicationState.loading
@@ -57,6 +62,48 @@ class _CharactersListPageState extends State<CharactersListPage> {
                       );
                     }),
               ),
+      ),
+    );
+  }
+
+  void _searchPressed() {
+    setState(() {
+      if (_searchIcon.icon == Icons.search) {
+        _searchIcon = const Icon(Icons.close);
+        _appBarTitle = TextField(
+          style: const TextStyle(color: Colors.white),
+          controller: textEditingController,
+          decoration: InputDecoration(
+            suffixIcon: IconButton(
+              icon: const Icon(
+                Icons.search,
+                color: Colors.white,
+              ),
+              onPressed: () {},
+            ),
+            hintText: 'Search...',
+            hintStyle: TextStyle(color: Colors.white),
+          ),
+        );
+      } else {
+        _appBarTitle = const Text('Wiki do StarWars');
+        _searchIcon = const Icon(
+          Icons.search,
+          color: Colors.white,
+        );
+      }
+    });
+  }
+
+  PreferredSizeWidget _buildBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: Colors.black87,
+      foregroundColor: Colors.white,
+      centerTitle: true,
+      title: _appBarTitle,
+      leading: IconButton(
+        icon: _searchIcon,
+        onPressed: _searchPressed,
       ),
     );
   }
