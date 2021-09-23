@@ -34,7 +34,8 @@ abstract class _CharacterDetailBlocBase with Store {
   }
 
   void getSpecie() async {
-    final result = await specieUseCase(characterEntity!.homeWorld);
+    final result = await specieUseCase(
+        SpecieParams(specieUrl: characterEntity!.homeWorld));
     result.fold((error) => null, (specie) => specieEntity = specie);
   }
 }

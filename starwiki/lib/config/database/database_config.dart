@@ -1,25 +1,27 @@
-// import '../../core/data_base_helper/lib/data_base_h.dart';
-// import '../injector/injector.dart';
+import 'package:starwiki/config/database/queries.dart';
 
-// class DataBaseConfig {
-//   DataBaseHelper? _db;
-//   static DataBaseConfig? _dbc;
+import '../injector/injector.dart';
+import 'database_helper.dart';
 
-//   static DataBaseConfig get instance {
-//     return _dbc ?? DataBaseConfig();
-//   }
+class DataBaseConfig {
+  DataBaseHelper? _db;
+  static DataBaseConfig? _dbc;
 
-//   DataBaseConfig() {
-//     _db = injector.get<DataBaseHelper>();
-//   }
+  static DataBaseConfig get instance {
+    return _dbc ?? DataBaseConfig();
+  }
 
-//   Future criarBanco() async {
-//     await _db?.initDataBase('dashboard_sprints_db', 1, _getQueries());
-//   }
+  DataBaseConfig() {
+    _db = injector.get<DataBaseHelper>();
+  }
 
-//   List<String> _getQueries() {
-//     return [
-//       CreateTableQueries.favorites,
-//     ];
-//   }
-// }
+  Future criarBanco() async {
+    await _db?.initDataBase('starwiki_db', 1, _getQueries());
+  }
+
+  List<String> _getQueries() {
+    return [
+      CreateTableQueries.favorites,
+    ];
+  }
+}

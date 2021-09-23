@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:dio/dio.dart';
 import 'package:starwiki/core/request_service/service.dart';
 import 'package:starwiki/features/characters/data/datasource/i_star_wars_datasource.dart';
 import 'package:starwiki/features/characters/data/model/favorities_model.dart';
@@ -16,23 +17,23 @@ class StarWarsDatasource extends IStarWarsDatasource {
   Future<PeopleInfoModel> getCharactersFromData(
       GetCharactersParams params) async {
     String url = "$urlBase/people?page=${params.page}";
-    final response = await requestProvider.getAsync<PeopleInfoModel>(
-        url, PeopleInfoModel.fromJson);
-    return response;
+    final response = await requestProvider.getAsync(url);
+    final people = PeopleInfoModel.fromJson(response);
+    return people;
   }
 
   @override
   Future<PlanetModel> getCharacterPlanet(String planetUrl) async {
-    final response = await requestProvider.getAsync<PlanetModel>(
-        planetUrl, PlanetModel.fromJson);
-    return response;
+    final response = await requestProvider.getAsync(planetUrl);
+    final planet = PlanetModel.fromJson(response);
+    return planet;
   }
 
   @override
   Future<SpecieModel> getCharacterSpecie(String specieUrl) async {
-    final response = await requestProvider.getAsync<SpecieModel>(
-        specieUrl, SpecieModel.fromJson);
-    return response;
+    final response = await requestProvider.getAsync(specieUrl);
+    final specie = SpecieModel.fromJson(response);
+    return specie;
   }
 
   @override
@@ -43,17 +44,16 @@ class StarWarsDatasource extends IStarWarsDatasource {
     }
 
     final response = await requestProvider.postAsync(
-        'http://private-anon-d667d37bc0-starwarsfavorites.apiary-mock.com/favorite/$id',
-        null,
-        FavoritiesModel.fromJson);
-    return response;
+        'http://private-anon-d667d37bc0-starwarsfavorites.apiary-mock.com/favorite/$id');
+    final favorite = FavoritiesModel.fromJson(response);
+    return favorite;
   }
 
   @override
   Future<PeopleInfoModel> getCharacterSearch(String name) async {
     String url = "$urlBase/people/?search=$name";
-    final response = await requestProvider.getAsync<PeopleInfoModel>(
-        url, PeopleInfoModel.fromJson);
-    return response;
+    final response = await requestProvider.getAsync(url);
+    final people = PeopleInfoModel.fromJson(response);
+    return people;
   }
 }

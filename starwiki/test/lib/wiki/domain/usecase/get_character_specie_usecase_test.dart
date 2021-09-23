@@ -14,14 +14,16 @@ void main() {
 
   setUp(() {
     repository = MockStarWarsRepository();
-    getCharacterSpecieUsecase = GetCharacterSpecieUsecase(starWarsRepository: repository);
+    getCharacterSpecieUsecase =
+        GetCharacterSpecieUsecase(starWarsRepository: repository);
   });
   const tSpecieEntity = SpecieEntity(specieName: 'specieName');
   test('Deve retornar um SpecieEntity, ao pegar as informações do repository',
       () async {
     when(() => repository.getCharacterSpecie('specieUrl'))
         .thenAnswer((_) async => const Right(tSpecieEntity));
-    final result = await getCharacterSpecieUsecase.call('specieUrl');
+    final result = await getCharacterSpecieUsecase
+        .call(const SpecieParams(specieUrl: 'specieUrl'));
     expect(result, const Right<Error, SpecieEntity>(tSpecieEntity));
     verify(() => repository.getCharacterSpecie('specieUrl'));
   });
@@ -29,7 +31,8 @@ void main() {
   test('Deve retornar um Error no retorno do usecase', () async {
     when(() => repository.getCharacterSpecie('specieUrl'))
         .thenAnswer((_) async => Left(ServerError()));
-    final result = await getCharacterSpecieUsecase.call('specieUrl');
+    final result = await getCharacterSpecieUsecase
+        .call(const SpecieParams(specieUrl: 'specieUrl'));
     expect(result, Left<Error, SpecieEntity>(ServerError()));
     verify(() => repository.getCharacterSpecie('specieUrl'));
   });

@@ -17,12 +17,14 @@ void main() {
     getCharacterFavoriteUsecase =
         GetCharacterFavoriteUsecase(starWarsRepository: repository);
   });
-  const tFavoriteEntity = FavoritiesEntity(message: 'sucess', status: 'May the force be with you');
+  const tFavoriteEntity =
+      FavoritiesEntity(message: 'sucess', status: 'May the force be with you');
   test('Deve retornar um FavoriteEntity, ao pegar as informações do repository',
       () async {
     when(() => repository.getFavoriteResponse(1))
         .thenAnswer((_) async => const Right(tFavoriteEntity));
-    final result = await getCharacterFavoriteUsecase.call(1);
+    final result =
+        await getCharacterFavoriteUsecase.call(const FavoriteParams(id: 1));
     expect(result, const Right<Error, FavoritiesEntity>(tFavoriteEntity));
     verify(() => repository.getFavoriteResponse(1));
   });
@@ -30,7 +32,8 @@ void main() {
   test('Deve retornar um Error no retorno do usecase', () async {
     when(() => repository.getFavoriteResponse(1))
         .thenAnswer((_) async => Left(ServerError()));
-    final result = await getCharacterFavoriteUsecase.call(1);
+    final result =
+        await getCharacterFavoriteUsecase.call(const FavoriteParams(id: 1));
     expect(result, Left<Error, FavoritiesEntity>(ServerError()));
     verify(() => repository.getFavoriteResponse(1));
   });

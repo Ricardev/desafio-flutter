@@ -48,16 +48,13 @@ class StarWarsRepository implements IStarWarsRepository {
 
   @override
   Future<Either<Error, FavoritiesEntity>> getFavoriteResponse(int id) async {
-    try {
-      final result = await starWarsDatasource.favoriteCharacter(id);
-      return Right(result);
-    } on ServerException {
-      return Left(ServerError());
-    }
+    final result = await starWarsDatasource.favoriteCharacter(id);
+    return Right(result);
   }
 
   @override
-  Future<Either<Error, PeopleInfoEntity>> getCharacterSearch(String name) async{
+  Future<Either<Error, PeopleInfoEntity>> getCharacterSearch(
+      String name) async {
     try {
       final result = await starWarsDatasource.getCharacterSearch(name);
       return Right(result);

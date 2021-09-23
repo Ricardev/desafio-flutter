@@ -30,15 +30,28 @@ class CharacterContainer extends StatelessWidget {
               color: Colors.white.withOpacity(0.2),
             ),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Stack(
             children: [
-              Text(
-                "Name: " + bloc.characters[index].name,
+              IconButton(
+                  onPressed: () {
+                    bloc.saveFavorite(index);
+                  },
+                  icon: Icon(bloc.favoritesList.contains(index)
+                      ? Icons.star
+                      : Icons.star_border)),
+              Align(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Name: " + bloc.characters[index].name,
+                    ),
+                    Text("Height:  " + bloc.characters[index].height),
+                    Text("Gender:  " + bloc.characters[index].gender),
+                    Text("Mass:  " + bloc.characters[index].mass),
+                  ],
+                ),
               ),
-              Text("Height:  " + bloc.characters[index].height),
-              Text("Gender:  " + bloc.characters[index].gender),
-              Text("Mass:  " + bloc.characters[index].mass),
             ],
           ),
         ),

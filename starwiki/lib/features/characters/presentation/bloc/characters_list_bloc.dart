@@ -5,6 +5,7 @@ import 'package:starwiki/core/states/application_states.dart';
 import 'package:starwiki/features/characters/domain/entity/character_entity.dart';
 import 'package:starwiki/features/characters/domain/usecase/get_character_usecase.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:starwiki/features/characters/domain/usecase/get_favorite_response_usecase.dart';
 import 'package:starwiki/features/characters/presentation/pages/character_detail.dart';
 part 'characters_list_bloc.g.dart';
 
@@ -12,8 +13,11 @@ class CharactersListBloc = _CharactersListBlocBase with _$CharactersListBloc;
 
 abstract class _CharactersListBlocBase with Store {
   final GetCharacterUsecase getCharacterUsecase;
+  final GetCharacterFavoriteUsecase getCharacterFavoriteUsecase;
 
-  _CharactersListBlocBase({required this.getCharacterUsecase}) {
+  _CharactersListBlocBase(
+      {required this.getCharacterUsecase,
+      required this.getCharacterFavoriteUsecase}) {
     getCharactersList();
   }
 
@@ -52,6 +56,18 @@ abstract class _CharactersListBlocBase with Store {
                   characterEntity: characters[index],
                 )));
   }
+
+  void saveFavorite(int id) async {
+    final result = await getCharacterFavoriteUsecase(FavoriteParams(id: id));
+    result.fold((l) => null, (favorite) {
+      if (favorite.status == "success") {
+        favoritesList.add(id);
+      }
+    });
+  }
+
+  @observable
+  ObservableList<int> favoritesList = ObservableList<int>();
 
   @observable
   ApplicationState state = ApplicationState.loading;

@@ -32,12 +32,11 @@ void main() {
     homeWorld: 'homeWorld',
     specie: ['specie'],
   );
-  
 
   test(
     'tem que chamar o método correto com a url correta ao chamar os personagens',
     () async {
-      when(() => requestProvider.getAsync(any(), any()))
+      when(() => requestProvider.getAsync(any()))
           .thenAnswer((_) async => const PeopleInfoModel(
                 characters: [tCharacterModel],
                 count: 81,
@@ -47,30 +46,30 @@ void main() {
 
       await datasource.getCharactersFromData(tGetCharactersParams);
 
-      verify(() => requestProvider.getAsync(
-          "https://swapi.dev/api/people?page=1", PeopleInfoModel.fromJson));
+      verify(() =>
+          requestProvider.getAsync("https://swapi.dev/api/people?page=1"));
     },
   );
   test(
     'tem que chamar o método correto com a url correta ao chamar a specie',
     () async {
-      when(() => requestProvider.getAsync(any(), any()))
+      when(() => requestProvider.getAsync(any()))
           .thenAnswer((_) async => const SpecieModel(specieName: 'specieName'));
 
       await datasource.getCharacterSpecie('specieUrl');
 
-      verify(() => requestProvider.getAsync("specieUrl", SpecieModel.fromJson));
+      verify(() => requestProvider.getAsync("specieUrl"));
     },
   );
   test(
     'tem que chamar o método correto com a url correta ao chamar a planet',
     () async {
-      when(() => requestProvider.getAsync(any(), any()))
+      when(() => requestProvider.getAsync(any()))
           .thenAnswer((_) async => const PlanetModel(planetName: 'planetName'));
 
       await datasource.getCharacterPlanet('planetUrl');
 
-      verify(() => requestProvider.getAsync("planetUrl", PlanetModel.fromJson));
+      verify(() => requestProvider.getAsync("planetUrl"));
     },
   );
 }
