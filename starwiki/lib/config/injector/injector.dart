@@ -8,6 +8,7 @@ import 'package:starwiki/features/characters/data/datasource/star_wars_datasourc
 import 'package:starwiki/features/characters/data/repository/star_wars_repository.dart';
 import 'package:starwiki/features/characters/domain/repository/i_star_wars_repository.dart';
 import 'package:starwiki/features/characters/domain/usecase/get_character_planet_usecase.dart';
+import 'package:starwiki/features/characters/domain/usecase/get_character_search_usecase.dart';
 import 'package:starwiki/features/characters/domain/usecase/get_character_specie_usecase.dart';
 import 'package:starwiki/features/characters/domain/usecase/get_character_usecase.dart';
 import 'package:starwiki/features/characters/domain/usecase/get_favorite_response_usecase.dart';
@@ -34,9 +35,12 @@ Future<void> init() async {
       () => GetCharacterSpecieUsecase(starWarsRepository: injector()));
   injector.registerLazySingleton(
       () => GetCharacterFavoriteUsecase(starWarsRepository: injector()));
+  injector.registerLazySingleton(
+      () => GetCharacterSearchUsecase(starWarsRepository: injector()));
   injector.registerLazySingleton(() => CharacterDetailBloc(
       planetUseCase: injector(), specieUseCase: injector()));
   injector.registerLazySingleton(() => CharactersListBloc(
       getCharacterUsecase: injector(),
-      getCharacterFavoriteUsecase: injector()));
+      getCharacterFavoriteUsecase: injector(),
+      searchUsecase: injector()));
 }

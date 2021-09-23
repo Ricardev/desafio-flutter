@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:starwiki/features/characters/presentation/bloc/characters_list_bloc.dart';
 
 class CharacterContainer extends StatelessWidget {
@@ -32,13 +33,15 @@ class CharacterContainer extends StatelessWidget {
           ),
           child: Stack(
             children: [
-              IconButton(
-                  onPressed: () {
-                    bloc.saveFavorite(index);
-                  },
-                  icon: Icon(bloc.favoritesList.contains(index)
-                      ? Icons.star
-                      : Icons.star_border)),
+              Observer(
+                builder: (_) => IconButton(
+                    onPressed: () {
+                      bloc.saveFavorite(index);
+                    },
+                    icon: Icon(bloc.favoritesList.contains(index)
+                        ? Icons.star
+                        : Icons.star_border)),
+              ),
               Align(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

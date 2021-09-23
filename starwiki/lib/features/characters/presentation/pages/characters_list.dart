@@ -79,7 +79,9 @@ class _CharactersListPageState extends State<CharactersListPage> {
                 Icons.search,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () {
+                _bloc.searchCharacter(textEditingController.text);
+              },
             ),
             hintText: 'Search...',
             hintStyle: TextStyle(color: Colors.white),
